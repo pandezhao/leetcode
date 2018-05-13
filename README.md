@@ -1,0 +1,2 @@
+# leetcode
+Answer for leetcode
