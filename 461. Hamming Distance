@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int dist = 0, n = x ^ y;
+        while(n){
+            ++dist;
+            n&=n-1;
+        }
+        return dist;
+    }
+};
+//n &= n-1 这行代码的含义是将二进制n的最后一位1变为0，当二进制n里边没有0的时候。那么while 0 也就不成立了
