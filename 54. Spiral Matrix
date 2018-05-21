@@ -1,0 +1,42 @@
+class Solution:
+    def spiralOrder(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[int]
+        """
+        if not matrix or not matrix[0]:
+            return []
+        result = []
+        b_m = 0
+        b_n = 0
+        m = len(matrix)
+        n = len(matrix[0])
+        d = 0
+        while b_m < m and b_n <n:
+            if d == 0:
+                for i in range(b_n,n):
+                    result.append(matrix[b_m][i])
+                b_m += 1
+                d += 1
+            if d == 1:
+                for i in range(b_m,m):
+                    result.append(matrix[i][n-1])
+                n -= 1
+                d += 1
+            if d == 2:
+                for i in range(n-1,b_n-1,-1):
+                    result.append(matrix[m-1][i])
+                m -= 1
+                d += 1
+            if d == 3:
+                for i in range(m-1,b_m-1,-1):
+                    result.append(matrix[i][b_n])
+                b_n += 1
+                d -= 3
+        if b_n == n:
+            for i in range(b_m,m+1):
+                result.append(matrix[i][n])
+        elif b_m == m:
+            for i in range(b_n,n+1):
+                result.append(matrix[b_m][i])
+        return result
