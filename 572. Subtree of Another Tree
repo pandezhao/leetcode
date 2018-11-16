@@ -1,0 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        if (exactsub(s, t)){
+            return true;
+        }else if (s->right!=NULL || s->left!=NULL){
+            bool right = false;
+            bool left = false;
+            if (s->right!=NULL){
+                right = isSubtree(s->right, t);
+            }
+            if (s->left!=NULL){
+                left = isSubtree(s->left, t);
+            }
+            return right || left;
+        }else{return false;}
+    }
+    
+    bool exactsub(TreeNode* a, TreeNode* b) {
+        if (a->val == b->val){
+            bool right = false;
+            bool left = false;
+            if (a->right==NULL && b->right==NULL){
+                right = true;
+            }else if(a->right==NULL || b->right==NULL){
+                return false;
+            }else{
+                right = exactsub(a->right, b->right);
+                if (!right)return false;
+            }
+            if (a->left==NULL && b->left==NULL){
+                left = true;
+            }else if (a->left==NULL || b->left==NULL){
+                return false;
+            }else{
+                left = exactsub(a->left, b->left);
+            }
+            return right&&left;
+        }else return false;
+    }
+};
